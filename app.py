@@ -34,8 +34,14 @@ dictConfig({
 app = Flask(__name__)
 
 
+@app.route('/health')
+def healthcheck_endpoint():
+    app.logger.info('getting healthcheck endpoint')
+    return 'success'
+
+
 @app.route('/webhook/splunk', methods=['POST'])
-def post_endpoint():
+def splunk_endpoint():
     app.logger.info('circleci webhook triggered splunk http event collector')
     app.logger.info(json.dumps(flask_request.json))
     
